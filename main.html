@@ -1,0 +1,97 @@
+<!doctype html>
+<html class="no-js">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="description" content="">
+  <meta name="keywords" content="">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Sequence Diagrams</title>
+
+  <!-- Set render engine for 360 browser -->
+  <meta name="renderer" content="webkit">
+
+  <!-- No Baidu Siteapp-->
+  <meta http-equiv="Cache-Control" content="no-siteapp" />
+
+  <!-- <link rel="icon" type="image/png" href="icon.png"> -->
+
+  <!-- Add to homescreen for Chrome on Android -->
+  <meta name="mobile-web-app-capable" content="yes">
+  <!-- <link rel="icon" sizes="192x192" href="icon.png"> -->
+
+  <!-- Add to homescreen for Safari on iOS -->
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="apple-mobile-web-app-title" content="Sequence Diagrams" />
+  <!-- <link rel="apple-touch-icon-precomposed" href="icon.png"> -->
+
+  <!-- Tile icon for Win8 (144x144 + tile color) -->
+  <!-- <meta name="msapplication-TileImage" content="icon.png"> -->
+  <meta name="msapplication-TileColor" content="#0e90d2">
+
+  <script src="zrender.js"></script>
+  <script src="diagram.js"></script>
+  <style>
+    html,body{
+      width: 100%;
+      height: 100%;
+      margin: 0;
+      text-align: center;
+    }
+    .diagram{
+      width: 600px;
+      height: 400px;
+      box-shadow: 1px 1px 8px #999;
+      margin: 0 auto;
+    }
+    button{
+      width: 100px;
+      height: 40px;
+      display: inline-block;
+      font-size: 30px;
+    }
+    #input{
+      width: 600px;
+      height: 100px;
+      display: block;
+      margin: 10px auto;
+    }
+    #render{
+      margin-right: 50px;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="main">
+  </div>
+  <textarea id="input"></textarea>
+  <button id="render">render</button>
+  <button id="save">save</button>
+  <script>
+    String.prototype.trim = function () {
+      return this.replace(/^(\s*)|(\s*)$/g, '');
+    }
+    var input = 'Title: Hello Diagram;\n' +
+      'Members: Agent1, Agent2, Agent3, Agent4, Agent5, Agent6;\n' +
+      'Agent1 to Agent2: Hello;\n' +
+      'Agent2 to Agent3: Hello from Agent1 (This message was originally sent from Agent1);\n' +
+      'Agent2 to Agent4: Hello Agent4 Hello Agent4 Hello Agent4 Hello Agent4 (test test test test test test test test test test test test);\n' +
+      'Agent3 to Agent1: Hello Received;'
+    document.getElementById('input').value = input;
+    var mainEl = document.getElementById('main')
+    var d = diagram.init(document.getElementById('main'),{
+      data: input
+    });
+    document.getElementById('render').onclick = function(){
+      d.setData(document.getElementById('input').value);
+    }
+    document.getElementById('save').onclick = function(){
+      d.saveImage();
+    }
+  </script>
+</body>
+
+</html>
